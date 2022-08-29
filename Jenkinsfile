@@ -1,43 +1,56 @@
-pipleline 
+pipeline
 {
     agent any
-    stages 
+    stages
     {
-        stage ('Continous Download')
+        stage('ContinuousDownload')
         {
             steps
             {
-                script 
+                script
                 {
-                    try 
-                    {
-                    git branch: 'main', url: 'https://github.com/Padmanabham95/Jenkins_prac.git'  
-                    }
-                    catch (Exception e1)
-                    {
-                    emailext body: 'FYI', subject: 'Git download failure', to: 'dev@gmail.com'
-                    exit(1)
-                    }
+                   try
+                   {
+                       git 'https://github.com/Padmanabham95/Jenkins_prac.git'
+                   }
+                   catch(Exception e1)
+                   {
+                       mail bcc: '', body: 'Jenkins is unable to download from remote github', cc: '', from: '', replyTo: '', subject: 'Download failed', to: 'gitadmin@outlook.com'
+                       exit(1)
+                   }
                 }
-            } 
-        } 
-        stage ('Continous Build')
+               
+            }
+        }
+         stage('ContinuousBuild')
         {
             steps
             {
-                script 
+                script
                 {
-                    try 
-                    {
-                    sh 'mvn package'
-                    }
-                    catch (Exception e2)
-                    {
-                    emailext body: 'FYI', subject: 'Maven Build failured', to: 'dev@gmail.com'
-                    exit(2)
-                    }
+                   try
+                   {
+                       sh label: '', script: 'mvn package'
+                   }
+                   catch(Exception e2)
+                   {
+                       mail bcc: '', body: 'Jenkins is unable to create an artifact from the code', cc: '', from: '', replyTo: '', subject: 'Build failed', to: 'developers@outlook.com'
+                      exit(1)
+                   }
                 }
-            } 
-        } 
+               
+            }
+        }
+        
+        }
+       
     }
+  
+       
+            
+    
+ 
+    
+    
+    
 }
