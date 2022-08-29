@@ -30,7 +30,7 @@ pipeline
                 {
                    try
                    {
-                       sh label: '', script: 'mvn package'
+                       sh 'mvn package'
                    }
                    catch(Exception e2)
                    {
