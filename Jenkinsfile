@@ -33,7 +33,7 @@ pipleline
                     }
                     catch (Exception e2)
                     {
-                    emailext body: 'FYI', subject: 'Maven Build failure', to: 'dev@gmail.com'
+                    emailext body: 'FYI', subject: 'Maven Build failured', to: 'dev@gmail.com'
                     exit(2)
                     }
                 }
