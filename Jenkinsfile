@@ -1,47 +1,13 @@
-pipeline
+node ('Built-In Node')
 {
-    agent any
-    stages
+    stage ("Continous Download")
     {
-        stage('ContinuousDownload')
-        {
-            steps
-            {
-                script
-                {
-                   try
-                   {
-                       git 'https://github.com/Padmanabham95/Jenkins_prac.git'
-                   }
-                   catch(Exception e1)
-                   {
-                       mail bcc: '', body: 'Jenkins is unable to download from remote github', cc: '', from: '', replyTo: '', subject: 'Download failed', to: 'gitadmin@outlook.com'
-                       exit(1)
-                   }
-                }
-               
-            }
-        }
-         stage('ContinuousBuild')
-        {
-            steps
-            {
-                script
-                {
-                   try
-                   {
-                       sh 'mvn package'
-                   }
-                   catch(Exception e2)
-                   {
-                       mail bcc: '', body: 'Jenkins is unable to create an artifact from the code', cc: '', from: '', replyTo: '', subject: 'Build failed', to: 'developers@outlook.com'
-                      exit(1)
-                   }
-                }
-               
-            }
-        }
-        
-        }
-       
+      git 'https://github.com/Padmanabham95/Jenkins_prac.git'  
     }
+    stage ("Continous Build")
+    {
+      sh 'mvn package'
+    }
+}
+
+    
